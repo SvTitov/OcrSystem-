@@ -48,7 +48,7 @@ namespace RusOCR
         #region methods
 
         /// <summary>
-        /// Определяет области на которых есть символы
+        /// Определяет верхнию и нижнию границы области с символами
         /// </summary>
         /// <param name="image"></param>
         private void FindTextBox()
@@ -99,24 +99,30 @@ namespace RusOCR
 
                             flag = false;
 
-                            _lines.Add(FindColumn(Image, upperLeft, lowerLeft));
+                            _lines.Add(FindColumn(upperLeft, lowerLeft));
                         }
                     }
                 }
             }
         }
-
-        private TextBox FindColumn(Image image, int upperLeft, int lowerLeft)
+        /// <summary>
+        /// Определяет левую и праваю границы области символов
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="upperLeft"></param>
+        /// <param name="lowerLeft"></param>
+        /// <returns></returns>
+        private TextBox FindColumn(int upperLeft, int lowerLeft)
         {
-            int xMin = image.Width;
+            int xMin = _image.Width;
             int xMax = 0;
 
-            var im = (Bitmap) image;
+            var im = (Bitmap) _image;
 
             for (int y = lowerLeft; y < upperLeft; y++)
             {
                 // Ищем минимальную точку слева
-                for (int x = 0; x < image.Width; x++)
+                for (int x = 0; x < _image.Width; x++)
                 {
                     var pix = im.GetPixel(x, y);
 
@@ -130,7 +136,7 @@ namespace RusOCR
                 }
 
                 // ищем максимальную точку справа
-                for (int x = image.Width - 1; x > 0; x--)
+                for (int x = _image.Width - 1; x > 0; x--)
                 {
                     var pix = im.GetPixel(x, y);
 
@@ -170,12 +176,9 @@ namespace RusOCR
 
             CuteFirstSymbol();
         }
-
-        private void CuteFirstSymbol()
-        {
-            
-        }
-
+        /// <summary>
+        /// Метод очищяет от мутных пикселей в областях 
+        /// </summary>
         private void WashTextBox()
         {
             var image = (Bitmap) _image;

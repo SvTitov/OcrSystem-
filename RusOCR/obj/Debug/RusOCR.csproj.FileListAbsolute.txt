@@ -4,3 +4,4 @@ C:\Users\Титов\Documents\C#\proj\RusOCR\RusOCR\bin\Debug\RusOCR.pdb
 C:\Users\Титов\Documents\C#\proj\RusOCR\RusOCR\obj\Debug\RusOCR.csprojResolveAssemblyReference.cache
 C:\Users\Титов\Documents\C#\proj\RusOCR\RusOCR\obj\Debug\RusOCR.exe
 C:\Users\Титов\Documents\C#\proj\RusOCR\RusOCR\obj\Debug\RusOCR.pdb
+C:\Users\Slayek\Documents\Project\C#\OcrSystem\RusOCR\bin\Debug\RusOCR.exe.config
