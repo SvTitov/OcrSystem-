@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Threading.Tasks;
 
 namespace RusOCR
 {
     /// <summary>
     /// Определение текста с картинки
     /// </summary>
-    public class Ocr : IDisposable
+    public class Ocr : IDisposable, IOpticalCharacterRecognition
     {
         #region var
 
         private List<TextBox> _lines;
         private Image _image;
+
+        private NeuronWeb neuronWeb;
 
         #endregion
 
@@ -36,9 +39,11 @@ namespace RusOCR
 
         #region constr
 
-        public Ocr(System.Drawing.Image image)
+        public Ocr(System.Drawing.Image image, Languages languages)
         {
             _image = image;
+
+            neuronWeb = new NeuronWeb(languages);
         }
 
         public Ocr()
@@ -152,7 +157,9 @@ namespace RusOCR
 
             return new TextBox() {UpperLeft = upperLeft, LowerLeft = lowerLeft, UpperRight = xMax, LowerRight = xMin};
         }
-
+        /// <summary>
+        /// Сохраняет текущее состояния рисунка
+        /// </summary>
         public void PrintImage()
         {
             if (_image == null)
@@ -163,19 +170,6 @@ namespace RusOCR
             (_image as Bitmap).Save(@"result/test.png", ImageFormat.Png);
         }
 
-        public void FindKeyA()
-        {
-            if (_image == null)
-            {
-                throw new NullReferenceException(nameof(_image));
-            }
-
-            FindTextBox();
-
-            WashTextBox();
-
-            CuteFirstSymbol();
-        }
         /// <summary>
         /// Метод очищяет от мутных пикселей в областях 
         /// </summary>
@@ -201,9 +195,27 @@ namespace RusOCR
             }
         }
 
+        public string GetText()
+        {
+            FindTextBox();
+
+            WashTextBox();
+
+            return string.Empty;
+        }
+
         public void Dispose()
         {
             this.Image = null;
+        }
+
+        private void SetStandartSize(ref Image image)
+        {
+            /// Алгоритм:
+            /// 1. Определяем во сколько раз отличаются размеры картинки от стандарта
+            /// 2. В соответсвии с полученным результатом коректируем картинку
+
+
         }
 
         #endregion

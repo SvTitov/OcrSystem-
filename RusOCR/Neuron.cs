@@ -9,8 +9,8 @@ namespace RusOCR
     {
         #region var
 
-        private readonly int _firstrIndex = 30;
-        private readonly int _secondIndex = 30;
+        private readonly int _height = 30;
+        private readonly int _width = 30;
 
         private string _name;
         private int[,] _input;
@@ -43,14 +43,14 @@ namespace RusOCR
             set { _name = value; }
         }
 
-        public int FirstrIndex
+        public int Height
         {
-            get { return _firstrIndex; }
+            get { return _height; }
         }
 
-        public int SecondIndex
+        public int Width
         {
-            get { return _secondIndex; }
+            get { return _width; }
         }
 
         #endregion
@@ -58,7 +58,7 @@ namespace RusOCR
 
         #region constr
         /// <summary>
-        /// КонструкторЬЩ
+        /// Конструктор
         /// </summary>
         public Neuron()
         {
@@ -71,9 +71,9 @@ namespace RusOCR
         #region methods
         public void TeachNeuron(System.Drawing.Image image)
         {
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < _height; i++)
             {
-                for (int j = 0; j < 30; j++)
+                for (int j = 0; j < _width; j++)
                 {
                     var pix = ((Bitmap) image).GetPixel(i, j);
                     int value = (pix.B + pix.G + pix.R)/3;
@@ -110,8 +110,8 @@ namespace RusOCR
 
         private void Initialize()
         {
-            this._input = new int[_firstrIndex, _secondIndex];
-            this._memory = new int[_firstrIndex, _secondIndex];
+            this._input = new int[_height, _width];
+            this._memory = new int[_height, _width];
 
             // заполняем память -1, для пустого значения
             for (int i = 0; i < 30; i++)

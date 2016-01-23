@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOpticalCharacterRecognition.cs" />
+    <Compile Include="Languages.cs" />
+    <Compile Include="NeuronWeb.cs" />
     <Compile Include="TextBox.cs" />
     <Compile Include="Neuron.cs" />
     <Compile Include="OCR.cs" />
